@@ -278,8 +278,8 @@ export default function PipelineMover() {
         value.value === 'Yes' || 
         value.value === '1' || 
         value.value === 'true' ||
-        value.value === true ||
-        value.value === 1
+        String(value.value) === 'true' ||
+        String(value.value) === '1'
       )
     ) || false
     
