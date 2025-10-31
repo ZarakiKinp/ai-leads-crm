@@ -289,7 +289,7 @@ export class KommoClient {
         const response = await api.patch('/leads', requestBody)
         
         console.log('Tag addition response:', response.data)
-        console.log('✅ Tag added successfully with color:', requestBody[0]._embedded.tags.find(t => t.name === tagName)?.color)
+        console.log('✅ Tag added successfully with color:', requestBody[0]._embedded.tags.find((t: { name: string }) => t.name === tagName)?.color)
         return true
       } else {
         console.log(`Tag "${tagName}" already exists for lead ${leadId}`)
