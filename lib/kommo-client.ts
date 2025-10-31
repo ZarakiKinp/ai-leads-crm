@@ -515,15 +515,6 @@ export class KommoClient {
     }
   }
 
-  async getPipelineStatuses(pipelineId: number): Promise<Array<{ id: number; name: string }>> {
-    try {
-      const response = await api.get(`/leads/pipelines/${pipelineId}/statuses`)
-      return response.data._embedded?.statuses || []
-    } catch (error) {
-      console.error('Error fetching pipeline statuses:', error)
-      throw new Error('Failed to fetch pipeline statuses')
-    }
-  }
 
   async getLeadMessages(leadId: number): Promise<any[]> {
     if (isDemoMode) {
