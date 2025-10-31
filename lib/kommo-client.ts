@@ -42,6 +42,7 @@ export interface Lead {
   phone?: Array<{ value: string }>
   email?: Array<{ value: string }>
   custom_fields_values?: Array<{
+    field_id?: number
     field_name: string
     values: Array<{ value: string }>
   }>
