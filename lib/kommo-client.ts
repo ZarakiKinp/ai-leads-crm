@@ -75,6 +75,11 @@ export interface Pipeline {
   }>
 }
 
+export interface ScoredLead extends Lead {
+  ai_score: number
+  ai_reason: string
+}
+
 export class KommoClient {
   async getPipelineStatuses(pipelineId: number): Promise<Array<{id: number, name: string}>> {
     try {
