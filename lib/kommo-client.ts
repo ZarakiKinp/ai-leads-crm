@@ -320,7 +320,7 @@ export class KommoClient {
       await this.updateLead(leadId, {
         pipeline_id: pipelineId,
         status_id: statusId
-      })
+      } as any)
       return true
     } catch (error) {
       console.error('Error moving lead to pipeline:', error)
@@ -337,8 +337,8 @@ export class KommoClient {
       console.log(`📋 Original lead data:`, { 
         name: originalLead.name, 
         score: score,
-        pipeline_id: originalLead.pipeline_id,
-        status_id: originalLead.status_id,
+        pipeline_id: (originalLead as any).pipeline_id || originalLead.pipeline?.id,
+        status_id: (originalLead as any).status_id || originalLead.status?.id,
         responsible_user_id: originalLead.responsible_user_id,
         price: originalLead.price,
         phone: originalLead.phone,
@@ -347,7 +347,7 @@ export class KommoClient {
       })
       
       // Create new lead data with same information but new pipeline/status
-      const newLeadData = {
+      const newLeadData: any = {
         name: originalLead.name || 'Copied Lead',
         pipeline_id: pipelineId,
         status_id: statusId,
