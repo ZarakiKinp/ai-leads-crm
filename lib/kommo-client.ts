@@ -300,15 +300,15 @@ export class KommoClient {
       console.error('Error details:', {
         leadId,
         tagName,
-        error: error.message,
-        response: error.response?.data,
-        status: error.response?.status,
-        config: error.config
+        error: error instanceof Error ? error.message : 'Unknown error',
+        response: (error as any).response?.data,
+        status: (error as any).response?.status,
+        config: (error as any).config
       })
       
       // Log the full error response for debugging
-      if (error.response?.data) {
-        console.error('Full error response:', JSON.stringify(error.response.data, null, 2))
+      if ((error as any).response?.data) {
+        console.error('Full error response:', JSON.stringify((error as any).response.data, null, 2))
       }
       
       return false
@@ -421,14 +421,15 @@ export class KommoClient {
       console.error('Error copying lead:', error)
       
       // Log detailed error information
-      if (error.response) {
-        console.error('❌ API Error Response:', error.response.data)
-        console.error('❌ API Error Status:', error.response.status)
-        console.error('❌ API Error Headers:', error.response.headers)
+      const axiosError = error as any
+      if (axiosError.response) {
+        console.error('❌ API Error Response:', axiosError.response.data)
+        console.error('❌ API Error Status:', axiosError.response.status)
+        console.error('❌ API Error Headers:', axiosError.response.headers)
         
         // Try to parse validation errors for better debugging
         try {
-          const errorData = error.response.data
+          const errorData = axiosError.response.data
           if (errorData && errorData.error && errorData.error.includes('validation-errors')) {
             console.error('❌ Validation Errors Detected - This might be due to:')
             console.error('   - Invalid enum values in custom fields')
@@ -487,10 +488,11 @@ export class KommoClient {
         } catch (parseError) {
           console.error('❌ Could not parse validation errors:', parseError)
         }
-      } else if (error.request) {
-        console.error('❌ Request Error:', error.request)
+      } else if (axiosError.request) {
+        console.error('❌ Request Error:', axiosError.request)
       } else {
-        console.error('❌ Error Message:', error.message)
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+        console.error('❌ Error Message:', errorMessage)
       }
       
       return false
