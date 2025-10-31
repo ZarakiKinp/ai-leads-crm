@@ -278,7 +278,7 @@ export class KommoClient {
         const requestBody = [
           {
             "_embedded": {
-              "tags": currentTagNames.map(name => ({ name }))
+              "tags": currentTagNames.map((name: string) => ({ name }))
             },
             "id": leadId
           }
