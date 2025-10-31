@@ -75,9 +75,13 @@ export async function GET(
     })
   } catch (error) {
     console.error('Kommo API proxy error:', error)
-    console.error('Error stack:', error.stack)
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    const errorStack = error instanceof Error ? error.stack : undefined
+    if (errorStack) {
+      console.error('Error stack:', errorStack)
+    }
     return NextResponse.json(
-      { error: `Failed to fetch data from Kommo API: ${error.message}` },
+      { error: `Failed to fetch data from Kommo API: ${errorMessage}` },
       { status: 500 }
     )
   }
@@ -136,9 +140,13 @@ export async function POST(
     })
   } catch (error) {
     console.error('Kommo API proxy error:', error)
-    console.error('Error stack:', error.stack)
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    const errorStack = error instanceof Error ? error.stack : undefined
+    if (errorStack) {
+      console.error('Error stack:', errorStack)
+    }
     return NextResponse.json(
-      { error: `Failed to update data in Kommo API: ${error.message}` },
+      { error: `Failed to update data in Kommo API: ${errorMessage}` },
       { status: 500 }
     )
   }
@@ -197,9 +205,13 @@ export async function PATCH(
     })
   } catch (error) {
     console.error('Kommo API proxy error:', error)
-    console.error('Error stack:', error.stack)
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    const errorStack = error instanceof Error ? error.stack : undefined
+    if (errorStack) {
+      console.error('Error stack:', errorStack)
+    }
     return NextResponse.json(
-      { error: `Failed to update data in Kommo API: ${error.message}` },
+      { error: `Failed to update data in Kommo API: ${errorMessage}` },
       { status: 500 }
     )
   }
