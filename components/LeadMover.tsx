@@ -321,7 +321,7 @@ export default function LeadMover() {
     
     // Filter by pipeline if selected - show only scored leads from that pipeline
     if (filterPipeline) {
-      filteredLeads = leads.filter(lead => lead.pipeline_id === filterPipeline)
+      filteredLeads = leads.filter(lead => lead.pipeline?.id === filterPipeline)
     }
     
     // Filter by score range if specified
